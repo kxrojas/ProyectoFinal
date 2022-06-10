@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- informacion de la pagina, fuentes y bootstrap -->
+<head>
+  <title>Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href=./styles/estiloI.css>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Este es el encabezado el que contiene el menu -->
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="index.html">
+      <img src="./assets/V_(logo_2010).svg.png" alt="" width="70" height="60">
+    </a>
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="Ingresar.html">Iniciar sesion</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="registro.html">Registrese</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="index.html">Colecciones</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="index.html">Acerca de</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+<!-- Este es el formulario con el cual el usuario puede iniciar sesion -->
+<div class="login-page" >
+  <div class="form">
+
+    <form class="login-form" id="log-in-form">
+      <input name="username" type="text" placeholder="UserName" id="username"/>
+      <input name="password" type="password" placeholder="Password" id="password"/>
+      <button>Ingrese</button>
+      <p class="message">¿No te has registrado? <a href="registro.html">Crear cuenta</a></p>
+    </form>
+
+    <script>
+      let form = document.getElementById("log-in-form");
+      form.onsubmit = async (e) => {
+        e.preventDefault();
+
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+        let role = document.getElementById("role").value;
+
+        let response = await fetch('./api/users/{user}');
+        let result = await response.json();
+
+        if (username==result.username && password==result.password && role==result.role) {
+          localStorage.setItem("username", username);
+          localStorage.setItem("role", role);
+
+          if (role=='Artista'){
+            window.location.href = "./perfilArtista.html";
+          }
+          else {
+            window.location.href = "./perfilComprador.html";
+          }
+        }
+      }
+    </script>
+  </div>
+</div>
+</body>
+</html>

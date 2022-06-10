@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    margin: 0px;
+    font-family: 'Comfortaa', cursive;
+    text-align: center;
+    background: #F6E6E4;
+    color: black;
+}
+.crear-piezas {
+    width: 450px;
+    padding: 30px;
+    margin: auto;
+    margin-top: 50px;
+    background: rgb(84, 99, 255);
+    border-radius: 5px;
+}
+.titulo{
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.cajas{
+    text-align: left;
+    width: 50%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: inherit;
+}
+.navbar{
+    display: flex;
+    flex-direction: row;
+    background-color: #FFD3B4
+}
+.navbar-brand {
+    margin-left: 2rem;
+}
+.crear-piezas {
+    width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #FFAAA7;
+    line-height: 60px;
+    border-radius: 5px;
+    color: black;
+}
+.selec-archivo{
+    text-align: center;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+.btn-create {
+    border: none;
+    font-size: 10px;
+    padding: 15px;
+}
+.nav-link {
+    color: black;
+}
+.nav-link.active{
+    margin-left: 15px;
+    color: black;
+}
+.nav-link:hover {
+    color: black;
+}
+.cajas {
+    height: 60px;
+}
+.btn {
+    background-color: #FFD3B4;
+    border-color:  #FFD3B4;
+    color: black;
+}
+.clover {
+    color: black;
+    height: 200px;
+    background-color: #FFD3B4;
+}
+.container {
+    margin-bottom: 100px;
+}

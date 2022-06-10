@@ -1,0 +1,60 @@
+body{
+    margin: 0px;
+    font-family: 'Comfortaa', cursive;
+    background-color: #F6E6E4;
+}
+
+.cover {
+    height: 400px;
+    background-image:url(https://fondosmil.com/fondo/1825.jpg);
+    color: black;
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0);
+    background-blend-mode: darken;
+}
+.cover-small {
+    height: 200px;
+    background-blend-mode: normal;
+}
+.nav-link {
+    color: black;
+}
+.nav-link:hover {
+    color: black;
+}
+.card {
+    border-color:#FFD3B4 ;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0), 0 4px 6px -1px rgba(0, 0, 0, 0);
+    display: flex;
+}
+.card-body {
+    background-color: #FFAAA7;
+}
+.navbar-brand {
+    margin-right: 80rem;
+    margin-left: 2rem;
+}
+.btn-warning {
+    color: black;
+    background-color: #FFD3B4;
+    border-color: #FFD3B4;
+}
+.btn-warning:hover {
+    background-color: #FFD3B4;
+    border-color: #FFD3B4;
+
+}
+.col-3 {
+    text-decoration: none;
+}
+.clover {
+    color: black;
+    height: 200px;
+    background-color: #FFD3B4;
+}
+.btn-primary {
+    background-color: #FFD3B4;
+    color: black;
+    border-color: #FFD3B4;
+}

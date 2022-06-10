@@ -1,0 +1,93 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    margin: 0px;
+    font-family: 'Comfortaa', cursive;
+    text-align: center;
+    background: #F6E6E4;
+    color: black;
+}
+.form{
+    width: 450px;
+    padding: 30px;
+    margin: auto;
+    margin-top: 100px;
+    background: rgb(84, 99, 255);
+    border-radius: 5px;
+}
+.titulo{
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.cajas{
+    height: 60px;
+    text-align: left;
+    width: 50%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: inherit;
+}
+.cajad {
+    height: 100px;
+    text-align: left;
+    width: 50%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: inherit;
+}
+.caja {
+    text-align: left;
+    width: 50%;
+    padding: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+}
+.navbar{
+    display: flex;
+    flex-direction: row;
+    background-color: #FFD3B4
+}
+.navbar-brand {
+    margin-left: 2rem;
+}
+.crear-coleccion {
+    width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #FFAAA7;
+    line-height: 60px;
+    border-radius: 5px;
+    color: black;
+}
+.nav-link {
+    color: black;
+}
+.nav-link.active{
+    margin-left: 15px;
+    color: black;
+}
+.nav-link:hover {
+    color: black;
+}
+.btn-primary {
+    margin-left: 90px;
+    margin-right: 90px;
+    background-color: #FFD3B4;
+    border-color:  #FFD3B4;
+    color: black;
+}
+.clover {
+    color: black;
+    height: 200px;
+    background-color: #FFD3B4;
+}
