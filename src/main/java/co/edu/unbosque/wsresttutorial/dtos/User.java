@@ -1,18 +1,21 @@
-package co.edu.unbosque.wsresttutorial.dtos;
+package co.edu.unbosque.dtos;
 
 public class User {
 
     private String username;
-    private String password;
     private String role;
+    private String password;
+    private String profileImage;
 
-    public User() {
-    }
+    //Método constructor de la clase User
+    public User(String username, String role, String password, String s, String s1) {}
 
-    public User(String username, String password, String role) {
+    //Método constructor de la clase User con variables declaradas
+    public User(String username,  String role, String password, String profileImage) {
         this.username = username;
-        this.password = password;
         this.role = role;
+        this.password = password;
+        this.profileImage = profileImage;
     }
 
     public String getUsername() {
@@ -23,6 +26,14 @@ public class User {
         this.username = username;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -31,11 +42,12 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public String getProfileImage() {
+        return profileImage;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 }
+

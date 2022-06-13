@@ -34,45 +34,24 @@
     </nav>
 </header>
 <!-- Este es el formulario que tiene que hacer el ususario para registrarse -->
-    <form class="form" id="create-user">
-        <input class="cajas" type="text" placeholder="Name" required maxlength="30">
-        <input name="username" id="username" class="cajas" type="text" placeholder="UserName" required maxlength="30">
-        <input class="cajas" type="email" placeholder="Email" required maxlength="30">
-        <input name="password"id="password" class="cajas" type="password" placeholder="Password" required maxlength="30">
-        <select name="role" id="role">
-            <option selected>Rol</option>
-            <option value="comprador">Comprador</option>
-            <option value="artista">Artista</option>
-        </select>
-        <input type="submit" class="btn" value="create-user">
-        <p class="tengo-cuenta"><a href="Ingresar.html" class="tengo-cuenta">Ya tengo cuenta</a></p>
-    </form>
-<script>
-    // Getting form by Id
-    let createUserForm = document.getElementById("create-user");
-    // Triggering event when submit
-    createUserForm.onsubmit = async (e) => {
-        e.preventDefault();
-        var data = {
-            "username": document.getElementById("username").value,
-            "password": document.getElementById("password").value,
-            "role": document.getElementById("role").value,
-        };
-        // Making the request
-        let response = await fetch("./api/users", {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
-        // Extracting response as text
-        let message = await response.json();
-        alert(message);
-        if(data.role===artist){window.location.href = "./perfilArtista.html";}
-        else if(data.role===customer){window.location.href = "./perfilComprador.html";}
-    };
-</script>
+<form class="form" id="create-user">
+    <input class="cajas" type="text" placeholder="Name" required maxlength="30">
+    <input name="username" id="username" class="cajas" type="text" placeholder="UserName" required maxlength="30">
+    <input class="cajas" type="email" id="Email" placeholder="Email" required maxlength="30">
+    <input name="password"id="password" class="cajas" type="password" placeholder="Password" required maxlength="30">
+    <select name="role" id="role">
+        <option selected>Rol</option>
+        <option value="comprador">Comprador</option>
+        <option value="artista">Artista</option>
+    </select>
+    <input type="submit" class="btn"  value="Crear usuario">
+    <p class="tengo-cuenta"><a href="Ingresar.html" class="tengo-cuenta">Ya tengo cuenta</a></p>
+</form>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://kit.fontawesome.com/dac7c8fdd5.js" crossorigin="anonymous"></script>
+<script src="./assets/javascript/registro.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 </html>

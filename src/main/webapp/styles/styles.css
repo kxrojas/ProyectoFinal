@@ -31,6 +31,12 @@ body{
 .card-body {
     background-color: #FFAAA7;
 }
+.card_tittle {
+    font-family: 'Comfortaa', cursive;
+    font-size: 20px;
+    margin-left: 25px;
+    color: blue;
+}
 .navbar-brand {
     margin-right: 80rem;
     margin-left: 2rem;
@@ -57,4 +63,7 @@ body{
     background-color: #FFD3B4;
     color: black;
     border-color: #FFD3B4;
+}
+.py-3 {
+    color: black;
 }

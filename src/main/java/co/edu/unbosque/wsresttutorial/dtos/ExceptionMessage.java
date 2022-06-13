@@ -1,4 +1,4 @@
-package co.edu.unbosque.wsresttutorial.dtos;
+package co.edu.unbosque.dtos;
 
 public class ExceptionMessage {
 

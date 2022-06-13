@@ -1,12 +1,11 @@
-package co.edu.unbosque.wsresttutorial.dtos;
+package co.edu.unbosque.dtos;
 
 public class Collection {
 
     private String username;
     private String collection;
 
-    public Collection(){
-    }
+    public Collection() {}
 
     public Collection(String username, String collection) {
         this.username = username;

@@ -1,113 +1,118 @@
-package co.edu.unbosque.wsresttutorial.services;
+package co.edu.unbosque.services;
 
-import co.edu.unbosque.wsresttutorial.dtos.User;
-import com.opencsv.bean.*;
+import co.edu.unbosque.dtos.User;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class UserService {
 
     private Connection conn;
 
-    public UserService(Connection conn){
+    public UserService(Connection conn) {
         this.conn = conn;
     }
 
     public List<User> listUsers() {
 
-        Statement statement = null;
-        List<User> usersList = new ArrayList<User>();
+        Statement stmt = null;
+        List<User> userList = new ArrayList<User>();
 
         try {
-            statement = conn.createStatement();
+            stmt = conn.createStatement();
             String sql = "SELECT * FROM userapp";
-            ResultSet resultSet = statement.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery(sql);
 
-            while (resultSet.next()) {
-                String username = resultSet.getString("userId");
-                String password = resultSet.getString("password");
-                String role = resultSet.getString("role");
+            while (rs.next()) {
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String profileimage =rs.getString("profileimage");
+                String role = rs.getString("role");
 
-                usersList.add(new User(username, password, role));
+                userList.add(new User(username, role, password, profileimage));
             }
-            resultSet.close();
-            statement.close();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
+            rs.close();
+            stmt.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } finally {
             try {
-                if (statement != null) {
-                    statement.close();
-                }
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
             }
         }
-        return usersList;
+        return userList;
     }
 
-    public List<User> getUsers() throws IOException {
+    public User getUser(String username) {
 
-        List<User> users;
+        PreparedStatement stmt = null;
+        User user = null;
 
-        try (InputStream is = UserService.class.getClassLoader()
-                .getResourceAsStream("users.csv")) {
+        try {
 
-            HeaderColumnNameMappingStrategy<User> strategy = new HeaderColumnNameMappingStrategy<>();
-            strategy.setType(User.class);
+            stmt = this.conn.prepareStatement("SELECT * FROM userapp WHERE user_id = ?");
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
 
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+            if(rs.next()) {
+                user = new User(
+                        rs.getString("user_id"),
+                        rs.getString("role"),
+                        rs.getString("password"),
+                        rs.getString("profileimage")
+                );
+            }
+            rs.close();
+            stmt.close();
 
-                CsvToBean<User> csvToBean = new CsvToBeanBuilder<User>(br)
-                        .withType(User.class)
-                        .withMappingStrategy(strategy)
-                        .withIgnoreLeadingWhiteSpace(true)
-                        .build();
-
-                users = csvToBean.parse();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
             }
         }
-
-        return users;
+        return user;
     }
 
     public User newUser(User user) {
-        PreparedStatement statement = null;
+        PreparedStatement stmt = null;
 
         if (user != null) {
+
             try {
 
                 if (user.getRole().equals("Artista")) {
-                    statement = this.conn.prepareStatement("INSERT INTO UserApp (userId, password, role) " +
-                            "VALUES (?,?,'Artista')");
+                    stmt = this.conn.prepareStatement("INSERT INTO UserApp (user_id, name, lastname, password, role, profileimage, description)\n" +
+                            "VALUES (?,?,?,?,'Artista',?,'')");
                 }
+
                 else if (user.getRole().equals("Comprador")) {
-                    statement = this.conn.prepareStatement("INSERT INTO UserApp (userId, password, role) " +
-                            "VALUES (?,?,'Comprador')");
+                    stmt = this.conn.prepareStatement("INSERT INTO UserApp (user_id, name, lastname, password, role, profileimage, description)\n" +
+                            "VALUES (?,?,?,?,'Comprador',?,'')");
                 }
-                statement.setString(1, user.getUsername());
-                statement.setString(2, user.getPassword());
-                statement.executeUpdate();
-                statement.close();
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-            finally {
+                stmt.setString(1, user.getUsername());
+                stmt.setString(2, user.getPassword());
+                stmt.setString(3, user.getProfileImage());
+
+                stmt.executeUpdate();
+                stmt.close();
+            } catch(SQLException se){
+                se.printStackTrace();
+            } finally{
                 try {
-                    if (statement != null) {
-                        statement.close();
-                    }
-                }
-                catch (SQLException e) {
-                    e.printStackTrace();
+                    if (stmt != null) stmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace();
                 }
             }
             return user;
@@ -115,38 +120,5 @@ public class UserService {
         else {
             return null;
         }
-    }
-
-    public User getUser(String username) {
-        PreparedStatement statement = null;
-        User user = null;
-
-        try {
-            statement = this.conn.prepareStatement("SELECT * FROM userApp WHERE userId = ?");
-            statement.setString(1, username);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                user = new User(resultSet.getString("userId"),
-                        resultSet.getString("password"),
-                        resultSet.getString("role"));
-            }
-            resultSet.close();
-            statement.close();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-                if (statement != null ){
-                    statement.close();
-                }
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return user;
     }
 }

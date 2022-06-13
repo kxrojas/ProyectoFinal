@@ -8,8 +8,6 @@ body{
     font-family: 'Comfortaa', cursive;
     background-color: #F6E6E4;
 }
-
-
 .form{
     width: 450px;
     padding: 30px;
@@ -21,7 +19,7 @@ body{
 }
 .titulo{
     color: black;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 .cajas{
     width: 100%;
@@ -44,17 +42,18 @@ body{
     font-size: 15px;
     background: #FFD3B4;
     color: black;
-
-
 }
-
 .tengo-cuenta{
     text-align: center;
     color: black;
     font-weight: bold;
     text-decoration: none;
 }
-
+.pictureprofile {
+    text-align: center;
+    margin-top: 4%;
+    margin-bottom: 0%;
+}
 .navbar-brand {
     background-color: #FFD3B4;
     margin-right: 80rem;

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingresar</title>
+    <!-- BOOTSTRAP CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href=./styles/estiloI.css>
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="index.html">
+            <img src="./assets/V_(logo_2010).svg.png" alt="" width="70" height="60">
+        </a>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="registro.html">Registrese</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Colecciones</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Acerca de</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<!-- Este es el formulario con el cual el usuario puede iniciar sesion -->
+<div class="login-page" >
+    <div class="form">
+        <form class="login-form" id="log-in-form">
+            <input name="username" type="text" placeholder="UserName" id="username"/>
+            <input name="password" type="password" placeholder="Password" id="password"/>
+            <select name = "role" class="form-control" id="roleInput" aria-describedby="role" required>
+                <option>Artista</option>
+                <option>Comprador</option>
+            </select>
+            <button>Ingrese</button>
+            <p class="message">¿No te has registrado? <a href="registro.html">Crear cuenta</a></p>
+        </form>
+    </div>
+    </form>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="Assets/js/ingresar.js"></script>
+<script src="Assets/js/account.js"></script>
+
+</body>
+</html>

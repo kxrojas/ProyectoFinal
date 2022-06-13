@@ -1,18 +1,16 @@
-package co.edu.unbosque.wsresttutorial.resources;
+package co.edu.unbosque.resources;
 
-import co.edu.unbosque.wsresttutorial.dtos.ExceptionMessage;
-import co.edu.unbosque.wsresttutorial.dtos.User;
-import co.edu.unbosque.wsresttutorial.services.UserService;
-import co.edu.unbosque.wsresttutorial.services.UsersService;
+import co.edu.unbosque.dtos.*;
+import co.edu.unbosque.services.NFTServices;
 
-import jakarta.servlet.MultipartConfigElement;
+import co.edu.unbosque.services.UserService;
 import jakarta.servlet.ServletContext;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
-import java.io.IOException;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -24,63 +22,25 @@ public class UsersResource {
 
     @Context
     ServletContext context;
+    private String UPLOAD_DIRECTORY = "profileImages";
 
-    //Credenciales BD
     static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://localhost/TiendaVale";
+    static final String DB_URL = "jdbc:postgresql://localhost:63342/TiendaVale";
     static final String USER = "postgres";
-    static final String PASS = "0987";
+    static final String PASS = "5432";
 
     @GET
     @Produces("application/json")
     public Response listUsers() {
         Connection conn = null;
-        List<User> users = null;
+        List<User> userList = null;
 
         try {
-
-            Class.forName(JDBC_DRIVER);
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-
-            UsersService usersService = new UsersService(conn);
-            users = usersService.listUsers();
-
-            conn.close();
-
-        } catch (SQLException se) {
-            se.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
-        }
-        return Response.ok().entity(users).build();
-    }
-
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response createForm(
-            @FormParam("username") String username,
-            @FormParam("password") String password,
-            @FormParam("role") String role
-    ) {
-        Connection conn = null;
-        User user = null;
-
-        try {
-
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             UserService usersService = new UserService(conn);
-
-            user = new User(username, password, role);
-            usersService.newUser(user);
+            userList = usersService.listUsers();
 
             conn.close();
         } catch (SQLException se) {
@@ -94,7 +54,7 @@ public class UsersResource {
                 se.printStackTrace();
             }
         }
-        return Response.created(UriBuilder.fromResource(UsersResource.class).path(username).build()).entity(user).build();
+        return Response.ok().entity(userList).build();
     }
 
     @GET
@@ -106,38 +66,125 @@ public class UsersResource {
         User user = null;
 
         try {
+
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            UserService usersService = new UserService(conn);
+            user = usersService.getUser(username);
+
+            conn.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        if (user != null) {
+            return Response.ok()
+                    .entity(user)
+                    .build();
+        } else {
+            return Response.status(404)
+                    .entity(new ExceptionMessage(404, "User not found"))
+                    .build();
+        }
+
+    }
+
+    @GET
+    @Path("/{username}/collections/{collection}/arts/{art}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getArt(@PathParam("username") String username, @PathParam("art") String image) {
+        Connection conn = null;
+
+        NFT art = null;
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            art = new NFTServices(conn).getNft(image);
+            conn.close();
+        } catch (ClassNotFoundException | SQLException nullPointerException) {
+            return Response.ok()
+                    .entity(String.valueOf(0))
+                    .build();
+        }
+
+        return Response.ok()
+                .entity(art)
+                .build();
+    }
+
+    @POST
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createForm(MultipartFormDataInput inputData) {
+        String username = "";
+        Connection conn = null;
+        User user = null;
+
+        try {
+            username = inputData.getFormDataPart("username", String.class, null);
+            String password = inputData.getFormDataPart("password", String.class, null);
+            String role = inputData.getFormDataPart("role", String.class, null);
+
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             UserService userService = new UserService(conn);
-            user = userService.getUser(username);
 
-            conn.close();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        catch (ClassNotFoundException c) {
-            c.printStackTrace();
-        }
-        finally {
-            try {
-                if (conn != null) {
+            Map<String, List<InputPart>> formParts = inputData.getFormDataMap();
+            List<InputPart> inputParts = formParts.get("formFile");
+
+            for (InputPart inputPart : inputParts) {
+                try {
+                    MultivaluedMap<String, String> headers = inputPart.getHeaders();
+                    InputStream istream = inputPart.getBody(InputStream.class, null);
+
+                    saveFile(istream, "", context);
+                    user = new User(username, role, password, "", "");
+                    userService.newUser(user);
                     conn.close();
+
+                } catch (IOException e) {
+                    return Response.serverError().build();
                 }
             }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
+        } catch (IOException e) {
+            return Response.serverError().build();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
-
-        if (user != null) {
-            return Response.ok().entity(user).build();
-        }
-        else {
-            return Response.status(404).entity(new ExceptionMessage(404, "user not found")).build();
-        }
+        return Response.created(UriBuilder.fromResource(UsersResource.class).path(username).build())
+                .entity(user)
+                .build();
     }
 
+    private void saveFile(InputStream uploadedInputStream, String fileName, ServletContext context) {
+        int read = 0;
+        byte[] bytes = new byte[1024];
 
+        try {
+            String uploadPath = context.getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator;
+
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) uploadDir.mkdir();
+
+            OutputStream outpuStream = new FileOutputStream(uploadPath + fileName);
+            while ((read = uploadedInputStream.read(bytes)) != -1) {
+                outpuStream.write(bytes, 0, read);
+            }
+            outpuStream.flush();
+            outpuStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

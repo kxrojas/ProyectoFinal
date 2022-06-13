@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html lang="es">
-<!-- informacion de la pagina, fuentes y bootstrap -->
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuario Artista</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- BOOTSTRAP CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <!-- CUSTOM CSS -->
     <link rel="stylesheet" href=./styles/estilo_u.css>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <!-- Este es el encabezado el que contiene el menu -->
@@ -22,216 +25,91 @@
         </a>
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="recargarArtista.html">Recargar</a>
+                <a class="nav-link active" aria-current="page" href="recargarFCoins.html">Recargar</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="index.html">Inicio</a>
             </li>
+            <a style="border-radius:10px; outline:none;" id="btnlog_out"><i class='bx bx-log-out' id="log_out" ></i></a>
         </ul>
     </nav>
 </header>
-<!-- Contiene la foto del usuario y el saldo ademas del boton ver colecciones -->
-<div>
-    <table>
-        <tr>
-            <td><a href="#"><img src="./assets/avatar1.png" width="300" height="300"></a></td>
-            <h1>Usuario Artista</h1>
-            <td>Usuario: juan_carlos02<br><br>Saldo: 0.0 &#8383<br><br><a href="crearColeccion.html" class="btn btn-primary">Crear colección</a>
-                <a href="crearPiezas.html" class="btn btn-primary">Crear Pieza</a>
-                <hr><a href="coleccionesArtistas.html" class="btn btn-primary">Ver colecciones</a>
-            </td>
-        </tr>
-    </table>
+    <section class="contenedor" id="Cuenta">
+        <h1 class="text">Usuario Artista</h1>
+        <div class="info">
+            <table>
+                <tr>
+                    <td><figure>
+                        <img id="profileImage" class="profileImage" width="300"; height="300"; src="./assets/avatar1.png">
+                    </figure>
+                        <div id="nombreusuario"></div>
+                    <td>Usuario: <br><br>Saldo: &#8383<br><br><a href="crearColeccion.html" class="btn btn-primary">Crear colección</a>
+                        <a href="crearPieza.html" class="btn btn-primary">Crear Pieza</a>
+                        <hr><a href="coleccionesArtistas.html" class="btn btn-primary">Ver colecciones</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </section>
 
-</div>
-<!-- Toda esta seccion pertenece a los NFTs -->
-<section>
-    <div class="container mt-5 mb-5  " id="colecciones">
+    <section class="contenedor" id="Colecciones">
 
-        <div class="row justify-content-center">
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-                <div class="card"><a href=""></a>
-                    <div class="cover cover-small"
-
-                         style="background-image:url(https://lh3.googleusercontent.com/ZqSBa7z6umZTcSxAW_ux840NmefFD2r4HU-S7TdN4EnkFFVCS3aLbt-4MV9lIeI57pgJj1Tt6UI31ggeqp26RWwXk7HEDhicTv985g=w286) ;">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">RudeKidz #1284</h5>
-                        <p class="card-text">Autor: Rodolfo</p><p class="card-text">0.39 &#x1F48E</p>
-                        <a href="#" class="btn btn-primary">Me gusta &#128420</a>
-                        <a href="recargarArtista.html" class="btn btn-primary">Fcoin &#8383 </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-                <div class="card">
-                    <div class="cover cover-small"
-                         style="background-image:url(https://lh3.googleusercontent.com/8rx6Odhi2tma8qhoeL7E2NBSjCaniZPyg0JBpnRm1-rik_zxD8veBG_p5sXXUYpRG4BU6-WyTGzExXbc29uTXM8RggCVp2bXT8oGLw=w286) ;">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">RudeKidz #1289 </h5>
-                        <p class="card-text">Autor: Valeria</p><p class="card-text">0.57 &#x1F48E </p>
-                        <a href="#" class="btn btn-primary">Me gusta &#128420</a>
-                        <a href="recargarArtista.html" class="btn btn-primary">Fcoin &#8383 </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-                <div class="card">
-                    <div class="cover cover-small"
-                         style="background-image:url(https://lh3.googleusercontent.com/N8__4Z-lsQEnTd8JO_P-3pPB-7i_C41czbw1doZnl4sIIpilh4yv74587R9HkpmRlERdIeX6lb4tJpG3eHuHkiOuyh1Or-ya8n9z=w286) ;">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">RudeKidz #1659 </h5>
-                        <p class="card-text">Autor: David</p><p class="card-text">0.31 &#x1F48E</p>
-                        <a href="#" class="btn btn-primary">Me gusta &#128420</a>
-                        <a href="recargarArtista.html" class="btn btn-primary">Fcoin &#8383 </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-                <div class="card">
-                    <div class="cover cover-small"
-                         style="background-image:url(https://lh3.googleusercontent.com/kiMK5F6sjf8Dgza5mDXIIIkuabjchdhPqtNrlcCQSb0OpiRTJS8vzcMWKN5-YuizBFdLWhjoq6aqZTkAT49UkFMTqvi7gTE_6bi4tFQ=w286) ;">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">RudeKidz #5326 </h5>
-                        <p class="card-text">Autor: Andrea</p><p class="card-text">0.87 &#x1F48E</p>
-                        <a href="#" class="btn btn-primary">Me gusta &#128420</a>
-                        <a href="recargarArtista.html" class="btn btn-primary">Fcoin &#8383 </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-                <div class="card">
-                    <div class="cover cover-small"
-                         style="background-image:url(https://lh3.googleusercontent.com/CtikgQ3yF5BwGgxdDiXWcUULrKtR88IEKSHb2U3vkVSSskaO63g-6NdzYMmzz-YoydgAlF_CNHJ4gyH6PG573UH6VImp2knyfTSR=w286) ;">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">RudeKidz #4264 </h5>
-                        <p class="card-text">Autor: Luis</p><p class="card-text">0.16 &#x1F48E</p>
-                        <a href="#" class="btn btn-primary">Me gusta &#128420</a>
-                        <a href="recargarArtista.html" class="btn btn-primary">Fcoin &#8383 </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-                <div class="card">
-                    <div class="cover cover-small"
-                         style="background-image:url(https://lh3.googleusercontent.com/QLFWtwpnc01fcTFM4Motbp296kM9Viv3IXmcfkoMlEL5IzMANfnRDB0z8W4eBdPIlYmjLnV9wwA8__zvbkkfMwIQWxegeZdQq_a6Sg=w286) ;">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">RudeKidz #8954 </h5>
-                        <p class="card-text">Autor: Gerardo</p><p class="card-text">0.36 &#x1F48E</p>
-                        <a href="#" class="btn btn-primary">Me gusta &#128420</a>
-                        <a href="recargarArtista.html" class="btn btn-primary">Fcoin &#8383 </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-                <div class="card">
-                    <div class="cover cover-small"
-                         style="background-image:url(https://lh3.googleusercontent.com/HLLghMW8zk3QyJWqWowpfJf2D7gK6rhq_E039gzuPALEFNd_CFuiUuPEJrNmeaSCsf6OTwkhRPhOgBHthlswI2OUr-ME6HdQj3Xv7A=w286) ;">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">RudeKidz #7452 </h5>
-                        <p class="card-text">Autor: Santiago</p><p class="card-text">0.78 &#x1F48E</p>
-                        <a href="#" class="btn btn-primary">Me gusta &#128420</a>
-                        <a href="recargarArtista.html" class="btn btn-primary">Fcoin &#8383 </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-                <div class="card">
-                    <div class="cover cover-small"
-                         style="background-image:url(https://lh3.googleusercontent.com/_wS9uIxieBvkPoEAmNsppTQwFDHhshs7BAFHuis-FkPwOqsW5-4MHcE0BhlpSG8Dkjy97uH9_rnsGOL-d3tOkZbBIFQHS2UVCzfaNg=w286) ;">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">RudeKidz #3085 </h5>
-                        <p class="card-text">Autor: Luisa</p><p class="card-text">0.72 &#x1F48E</p>
-                        <a href="#" class="btn btn-primary">Me gusta &#128420</a>
-                        <a href="recargarArtista.html" class="btn btn-primary">Fcoin &#8383 </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-                <div class="card">
-                    <div class="cover cover-small"
-                         style="background-image:url(https://lh3.googleusercontent.com/JJIcaWJZj7ltpiDpterflDxzhRr2l-X-p--zlUbUM8kh23DS_XY4K7QVtPhu-Ntan1PW0iaDCMKxIIDH1lhbXZWyfLDaRf7L-jyfX_4=w286) ;">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">RudeKidz #8035 </h5>
-                        <p class="card-text">Autor: Jose</p><p class="card-text">0.27 &#x1F48E</p>
-                        <a href="#" class="btn btn-primary">Me gusta &#128420</a>
-                        <a href="recargarArtista.html" class="btn btn-primary">Fcoin &#8383 </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-                <div class="card">
-                    <div class="cover cover-small"
-                         style="background-image:url(https://lh3.googleusercontent.com/uesgLNkXBqdiQ33H1MS4c9rI7dZfhSNM4WZN0vMO2beNLTFTOWShpd4DZzZdwvpuZDafN6uxBuIBj1F5ubzeB-Wuoe5d-we0PaaCQg=w286) ;">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">RudeKidz #3985 </h5>
-                        <p class="card-text">Autor: Tomas</p><p class="card-text">0.24 &#x1F48E</p>
-                        <a href="#" class="btn btn-primary">Me gusta &#128420</a>
-                        <a href="recargarArtista.html" class="btn btn-primary">Fcoin &#8383 </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-                <div class="card">
-                    <div class="cover cover-small"
-                         style="background-image:url(https://lh3.googleusercontent.com/-yuxbYKN1D0xyP8StLL14yLmR9mIe0_TeE_bw2ltS8au2Rao_DxxdGAwpxowr3onnZVbWsx8G2hFiNMXzkJflSpMLR2tiJ6wrXo4=w286) ;">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">RudeKidz #5685 </h5>
-                        <p class="card-text">Autor: Harold</p><p class="card-text">0.56 &#x1F48E</p>
-                        <a href="#" class="btn btn-primary">Me gusta &#128420</a>
-                        <a href="recargarArtista.html" class="btn btn-primary">Fcoin &#8383 </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-                <div class="card">
-                    <div class="cover cover-small"
-                         style="background-image:url(https://lh3.googleusercontent.com/AxzkT8hv3nnF5KROxMmQT9Wy-bs7bVVdMb8hQDlBZYceTksFqEtSK9nsOeYOCTNVyUyTu0hqffhX0HJPY5_A17oilETuo4632Rhbmv8=w286) ;">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">RudeKidz #7085 </h5>
-                        <p class="card-text">Autor: Nicolas</p><p class="card-text">0.98 &#x1F48E</p>
-                        <a href="#" class="btn btn-primary">Me gusta &#128420</a>
-                        <a href="recargarArtista.html" class="btn btn-primary">Fcoin &#8383 </a>
-                    </div>
-                </div>
+        <!-- COLECCIÓN -->
+        <!--Guia js-->
+        <div class="card-group contenedor-social" id="socialcard">
+            <div class="container">
+                <div id="cardcol"></div>
             </div>
         </div>
+    </section>
+
+    <!-- Este pie de pagina muestra la infromacion donde se pueden remitir -->
+    <footer>
+        <div class="clover d-flex justify-content-center align-items-center flex-column">
+            <h6>
+                CONTÁCTENOS
+            </h6>
+            <p>
+                3008952086-3017287445
+            </p>
+            <img src="./assets/V_(logo_2010).svg.png" alt="" width="70" height="60">
+        </div>
+    </footer>
+
+<!-- MODAL -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <section class="py-5" style="background-color: #E4E9F7">
+                <div class="cards" id="cardsCollection">
+
+                </div>
+            </section>
+        </div>
     </div>
-</section>
-<!-- Este pie de pagina muestra la infromacion donde se pueden remitir -->
-<footer>
-    <div class="clover d-flex justify-content-center align-items-center flex-column">
-        <h6>
-            CONTÁCTENOS
-        </h6>
-        <p>
-            3008952086-3017287445
-        </p>
-        <img src="./assets/V_(logo_2010).svg.png" alt="" width="70" height="60">
-    </div>
-</footer>
+</div>
 </body>
+<!-- BOOTSTRAP SCRIPTS -->
+<script src="Assets/js/artistAccount.js"></script>
+<script src="Assets/js/sumarLikes.js"></script>
+<script src="Assets/js/getDataArts.js"></script>
+<script src="Assets/js/account.js"></script>
+<script src="Assets/js/walletHistory.js"></script>
+<script>
+
+
+
+    window.addEventListener("DOMContentLoaded", getDataCollection(), editUser());
+</script>
+<script src="./Assets/js/botonDeshabilitar.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
 </html>

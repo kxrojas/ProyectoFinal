@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Pieza de Arte</title>
+    <!-- BOOTSTRAP CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href=./styles/estiloPiezas.css>
+</head>
+<body>
+<!-- Este es el encabezado el que contiene el menu -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#FFD3B4">
+        <a class="navbar-brand" href="perfilArtista.html">
+            <img src=./assets/avatar1.png alt="" width="70" height="60">
+        </a>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="perfilArtista.html"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="recargarArtista.html">Saldo: &#8383</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<!-- formulario para crear pieza -->
+<div class="container">
+    <div class="crear-piezas">
+        <form id="createart">
+            <h1 class="titulo">Crear Piezas de Arte Digital</h1>
+            <input class="cajas" name="autor" id="autor" type="text" placeholder="Autor"/>
+            <input class="cajas" name="collection" id="collection" type="text" placeholder="Colección"/>
+            <input class="cajas" name="title" id="title" type="title" placeholder="Título"/>
+            <input class="cajas" name="Fcoins" id="Fcoins" type="Fcoins" placeholder="Precio en FCoins"/>
+            <p class="selec-archivo">
+                <input type="file" id="image_url" required/>
+            </p>
+            <input class="btn" type="submit" value="CREAR"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

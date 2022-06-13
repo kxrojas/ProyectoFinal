@@ -1,7 +1,8 @@
-package co.edu.unbosque.wsresttutorial.resources;
+package co.edu.unbosque.resources;
 
-import co.edu.unbosque.wsresttutorial.dtos.Collection;
-import co.edu.unbosque.wsresttutorial.services.CollectionService;
+import co.edu.unbosque.dtos.*;
+import co.edu.unbosque.services.*;
+
 import jakarta.servlet.ServletContext;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -18,36 +19,34 @@ import java.util.Collections;
 import java.util.List;
 
 @Path("/collections")
-public class CollectionResource {
+public class ColeccionesResources {
 
     @Context
     ServletContext context;
 
     static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://localhost/TiendaVale";
+    static final String DB_URL = "jdbc:postgresql://localhost:63342/TiendaVale";
     static final String USER = "postgres";
-    static final String PASS = "0987";
+    static final String PASS = "5432";
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUltimasCollections() throws IOException {
-
+    public Response getColecciones() throws IOException {
         Connection conn = null;
-        List<Collection> collections = null;
+        List<Collection> collectionList = null;
 
         try {
-
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            CollectionService collectionService = new CollectionService(conn);
-            collections = collectionService.listCollection();
-            Collections.reverse(collections);
-            if(collections.size()>3){
+            CollectionServices collectionServices = new CollectionServices(conn);
+            collectionList = collectionServices.listCollections();
+            Collections.reverse(collectionList);
+            if(collectionList.size()>3){
                 int i=3;
-                while (collections.size()>3) {
-                    collections.remove(i);
-                }
+                    while (collectionList.size()>3) {
+                        collectionList.remove(i);
+                    }
             }
             conn.close();
         } catch (SQLException se) {
@@ -61,6 +60,7 @@ public class CollectionResource {
                 se.printStackTrace();
             }
         }
-        return Response.ok().entity(collections).build();
+        return Response.ok().entity(collectionList).build();
     }
+
 }
