@@ -18,10 +18,10 @@ public class UserService {
         this.conn = conn;
     }
 
-    public List<User> listUsers() {
+    public List<UserApp> listUsers() {
 
         Statement stmt = null;
-        List<User> userList = new ArrayList<User>();
+        List<UserApp> userList = new ArrayList<UserApp>();
 
         try {
             stmt = conn.createStatement();
@@ -34,7 +34,7 @@ public class UserService {
                 String profileimage =rs.getString("profileimage");
                 String role = rs.getString("role");
 
-                userList.add(new User(username, role, password, profileimage));
+                userList.add(new UserApp(username, role, password));
             }
             rs.close();
             stmt.close();
@@ -50,10 +50,10 @@ public class UserService {
         return userList;
     }
 
-    public User getUser(String username) {
+    public UserApp getUser(String username) {
 
         PreparedStatement stmt = null;
-        User user = null;
+        UserApp user = null;
 
         try {
 
@@ -62,11 +62,10 @@ public class UserService {
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()) {
-                user = new User(
-                        rs.getString("user_id"),
+                user = new UserApp(
+                        rs.getString("username"),
                         rs.getString("role"),
-                        rs.getString("password"),
-                        rs.getString("profileimage")
+                        rs.getString("password")
                 );
             }
             rs.close();
@@ -84,33 +83,52 @@ public class UserService {
         return user;
     }
 
-    public User newUser(User user) {
+    public UserApp newUserApp(UserApp user) {
+        System.out.println(user.toString());
+        // Object for handling SQL statement
         PreparedStatement stmt = null;
+        PreparedStatement stmt1 = null;
+        PreparedStatement stmt2 = null;
 
+        // Data structure to map results from database
         if (user != null) {
 
             try {
 
+                stmt2= this.conn.prepareStatement("INSERT INTO Usuario (password, username, role) VALUES (?, ?, ?)");
+                stmt2.setString(1, user.getPassword());
+                stmt2.setString(2, user.getUsername());
+                stmt2.setString(3, user.getRole());
+                stmt2.executeUpdate();
+                stmt2.close();
                 if (user.getRole().equals("Artista")) {
-                    stmt = this.conn.prepareStatement("INSERT INTO UserApp (user_id, name, lastname, password, role, profileimage, description)\n" +
-                            "VALUES (?,?,?,?,'Artista',?,'')");
+                    System.out.println("Es artista");
+                    stmt = this.conn.prepareStatement("INSERT INTO Artista (Password,Username)\n" +
+                            "VALUES (?,?)");
+                    stmt.setString(1, user.getPassword());
+                    stmt.setString(2, user.getUsername());
+                    stmt.executeUpdate();
+                    stmt.close();
                 }
 
                 else if (user.getRole().equals("Comprador")) {
-                    stmt = this.conn.prepareStatement("INSERT INTO UserApp (user_id, name, lastname, password, role, profileimage, description)\n" +
-                            "VALUES (?,?,?,?,'Comprador',?,'')");
+                    System.out.println("Es comprador");
+                    stmt1 = this.conn.prepareStatement("INSERT INTO Comprador(username, Password,fcoins)\n" +
+                            "VALUES (?,?,?)");
+                    stmt1.setString(1, user.getUsername());
+                    stmt1.setString(2, user.getPassword());
+                    stmt1.setInt(3, (0));
+                    stmt1.executeUpdate();
+                    stmt1.close();
                 }
-                stmt.setString(1, user.getUsername());
-                stmt.setString(2, user.getPassword());
-                stmt.setString(3, user.getProfileImage());
 
-                stmt.executeUpdate();
-                stmt.close();
             } catch(SQLException se){
-                se.printStackTrace();
+                se.printStackTrace(); // Handling errors from database
             } finally{
+                // Cleaning-up environment
                 try {
                     if (stmt != null) stmt.close();
+                    if (stmt1 != null) stmt1.close();
                 } catch (SQLException se) {
                     se.printStackTrace();
                 }
@@ -120,5 +138,7 @@ public class UserService {
         else {
             return null;
         }
+
+
     }
 }

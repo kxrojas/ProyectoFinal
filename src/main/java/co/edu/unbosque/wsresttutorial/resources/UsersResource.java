@@ -29,6 +29,71 @@ public class UsersResource {
     static final String USER = "postgres";
     static final String PASS = "0000";
 
+    @POST
+    @Path("/register")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createForm(
+            @FormParam("password") String password,
+            @FormParam("username") String username,
+            @FormParam("role") String role
+    ) {
+        Connection conn = null;
+        UserApp user = null;
+
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            UserService usersService = new UserService(conn);
+            System.out.println(password);
+            System.out.println(username);
+            System.out.println(role);
+
+            user = new UserApp(password, username, role);
+            usersService.newUserApp(user);
+
+            conn.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return Response.created(UriBuilder.fromResource(UsersResource.class).path(username).build())
+                .entity(user)
+                .build();
+    }
+
+    @POST
+    @Path("/login")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response ingresar(UserApp userApp){
+        Connection conn = null;
+        UserApp user = null;
+
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            new UserService(conn);
+            List<UserApp> userAppList = new ArrayList<UserApp>();
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        catch (ClassNotFoundException c) {
+            c.printStackTrace();
+        }
+        return Response.ok().entity(userApp).build();
+    }
+
     @GET
     @Produces("application/json")
     public Response listUsers() {
