@@ -21,9 +21,9 @@ public class WalletResources {
     ServletContext context;
 
     static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://localhost:63342/TiendaVale";
+    static final String DB_URL = "jdbc:postgresql://localhost/TiendaVale";
     static final String USER = "postgres";
-    static final String PASS = "near123";
+    static final String PASS = "0000";
 
     @GET
     @Path("/fcoins")

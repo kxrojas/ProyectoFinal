@@ -25,9 +25,9 @@ public class ColeccionesResources {
     ServletContext context;
 
     static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://localhost:63342/TiendaVale";
+    static final String DB_URL = "jdbc:postgresql://localhost/TiendaVale";
     static final String USER = "postgres";
-    static final String PASS = "5432";
+    static final String PASS = "0000";
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

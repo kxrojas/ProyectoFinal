@@ -26,9 +26,9 @@ public class OwnershipResources {
 
     private String UPLOAD_DIRECTORY = "NFTS";
     static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://localhost:63342/TiendaVale";
+    static final String DB_URL = "jdbc:postgresql://localhost/TiendaVale";
     static final String USER = "postgres";
-    static final String PASS = "5432";
+    static final String PASS = "0000";
 
     @Path("/arts/{art}")
     @GET
