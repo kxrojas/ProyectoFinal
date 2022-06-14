@@ -1,28 +1,24 @@
 
 const getDataArts = async (artsDiv) => {
 
+    //likes
   let data = null;
   let dataLikes = null;
   let heartLikesStatus = null;
-  
+
   let styleClassCardTopRankLikes = "";
 
-      //let url = window.location.href.split('/')[4].split('.')[0];
       let url = window.location.href
-      
-      //Realiza el llamado fetch de las artes dependiendo de la ubicación de la pagina
-       if(url.includes("customerAccount")){
+
+       if(url.includes("perfilComprador")){
           data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts`).then(response => response.json());
           if(artsDiv.id != "cardfavorites"){
               getDataArts(document.getElementById("cardfavorites"));
           }else{
-              data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());    
-          }    
-      }else if(url.includes("filterArts")){
-          data = await fetch(`./api/arts/filter?data=${params.filter}`).then(response => response.json());
-             
-      }else if(url.includes("artistAccount")){
-          data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());  
+              data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());
+          }
+      } else if(url.includes("perfilArtista")){
+          data = await fetch(`./api/owners/${localStorage.getItem("username")}/arts/likes`).then(response => response.json());
       } else{
         data = await fetch("./api/arts").then(response => response.json());
 
@@ -46,7 +42,7 @@ const getDataArts = async (artsDiv) => {
             data = await fetch("./api/arts/likes").then(response => response.json());
         }
       }
-      
+
       const listTotalLikes = await fetch("./api/arts/likes/list").then(response => response.json());
       const listTotalLikesByUser = await fetch(`./api/users/${localStorage.getItem('username')}/likes`).then(response => response.json());
 
@@ -77,9 +73,9 @@ const getDataArts = async (artsDiv) => {
           } else {
               heartLikesStatus = "Assets/svg/heart-fill.svg";
           }
-
-
           innerhtml += `
+
+
 
 <div class="col-md-4 card-position "> 
     <div class=" ${styleClassCardTopRankLikes} card mb-4 shadow-sm card-dimensions">
@@ -94,7 +90,7 @@ const getDataArts = async (artsDiv) => {
             <br>
             Colección: ${collection}
             </p>
-            <p class="text-muted">Precio: $${new Intl.NumberFormat().format(price)}</p>
+            <p class="text-muted">Precio: ${new Intl.NumberFormat().format(price)}</p>
             <p class="text-muted">Likes:
                 <button class="btn-like" onclick="btnLike('${idNFT}','${type}')">
                     <img id="heartStatus${idNFT}"" src="${heartLikesStatus}" width="15px">
@@ -103,7 +99,7 @@ const getDataArts = async (artsDiv) => {
             </p>`;
         
   //No agrega los botones de compra y carrito de compras
-  if(url.includes("customerAccount") && (artsDiv.id ==="cardOwner")|| url.includes("artistAccount")){
+  if(url.includes("perfilComprador") && (artsDiv.id ==="cardOwner")|| url.includes("perfilArtista")){
       innerhtml += `
       </div>
     </div>
@@ -193,11 +189,6 @@ const getDataModal = async (collection,username) => {
     //Ventana emrgente modal
     var imagesModal = document.getElementById("cardsCollection");
 
-
-    //llama la lista de colecciones
-    // const dataCollection = await fetch(`./api/collections`).then(response => response.json());
-    // const username = dataCollection.filter(data => (data.collection === collection));
-
     const dataCollectionNFTs = await fetch(`./api/users/${username}/collections/${collection}/arts`).then(response => response.json());
     const dataNFTs = dataCollectionNFTs.map(collectionNft => ({author: collectionNft.author}))
 
@@ -214,43 +205,12 @@ const getDataModal = async (collection,username) => {
               </section>
             </div>`;
 
-    
-    let dataLikes = null;
-    const listTotalLikes = await fetch("./api/arts/likes/list").then(response => response.json());
-    const listTotalLikesByUser = await fetch(`./api/users/${localStorage.getItem('username')}/likes`).then(response => response.json());
-
-    
-    for (const dataCollectionNFTs1 of dataCollectionNFTs) {
-        const {id, title, author, price, forSale} = dataCollectionNFTs1;
-
-        let idNFT = id.toString().split("\\")[1];
-        let type = "Modal";
-
-        const artTotalLike = listTotalLikes.filter(data => (data.idImage === idNFT));
-
-        if (artTotalLike.length != 0) {
-            dataLikes = artTotalLike[0].likes;
-        } else {
-            dataLikes = 0;
-        }
-
-        const likeByArt = listTotalLikesByUser.filter(data => (data.idImage === idNFT));
-        if (likeByArt.length != 0) {
-            heartLikesStatus = likeByArt[0].likes;
-        } else {
-            heartLikesStatus = 0;
-        }
-        if (heartLikesStatus === 0) {
-            heartLikesStatus = "Assets/svg/heart-unfill.svg";
-        } else {
-            heartLikesStatus = "Assets/svg/heart-fill.svg";
-        }
 
 
         var buyButtons = "";
         var habilitar ="";
 
-        if (window.location.toString().includes("artistAccount")) {
+        if (window.location.toString().includes("perfilArtista")) {
 
             if (forSale == true) {
 
@@ -305,8 +265,6 @@ const getDataModal = async (collection,username) => {
             </div>
         </div>
                     `;
-
-    }
 }
 
 

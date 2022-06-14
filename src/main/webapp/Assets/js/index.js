@@ -40,19 +40,7 @@ const btnBuy = async (input, condition)=>{
                     }
                 }
             }
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Este NFT ya es tuyo!',
-            })
         }
-    }else{
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Inicie Sesión para Comprar!',
-        })
     }
 }
 
